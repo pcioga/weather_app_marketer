@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  margin: 0;
+  background-color: #282d35;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background-color: #21222a;
+}
+
+.header--title {
+  margin-right: auto;
+  color: #deebf8;
+  font-weight: 600;
+}
+
+.header--search {
+  border-radius: 1rem;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.display--city {
+  margin: 0;
+  color: #61dafb;
+}
