@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import WeatherDisplay from "./components/WeatherDisplay";
+import WeatherCardGrid from "./components/WeatherSearches";
 import debounce from "lodash/debounce";
+import uniqBy from "lodash/uniqBy";
 import { getUserLocation, getLocationName, getWeather } from "./api";
 import "./App.css";
 
@@ -22,12 +24,15 @@ function App() {
 
   const [searchLocation, setSearchLocation] = useState(null);
 
-  const [recentSearches, setSearches] = useState([]);
+  const [recentSearches, setRecentSearches] = useState([]);
 
   const fetchWeatherData = async (city) => {
     const weatherData = await getWeather(city);
     if (weatherData) {
       setWeatherData(weatherData);
+      setRecentSearches((prevRecentSearches) =>
+        uniqBy([weatherData, ...prevRecentSearches], "city")
+      );
     }
   };
 
@@ -58,10 +63,10 @@ function App() {
   return (
     <div>
       <Header onSearch={setSearchLocation} />
-      <div className="main--city">
-        {weatherData.city}, {weatherData.country}
-      </div>
-      <WeatherDisplay {...weatherData} />
+      <main>
+        <WeatherDisplay {...weatherData} />
+        <WeatherCardGrid cardData={recentSearches.slice(1, 4)} />
+      </main>
     </div>
   );
 }

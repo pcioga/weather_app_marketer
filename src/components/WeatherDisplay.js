@@ -6,10 +6,13 @@ export default function WeatherDisplay({
   humidity,
   temperature,
   windSpeed,
+  city,
+  country,
 }) {
   return (
-    <main>
+    <div>
       <div className="display--main">
+        {city}, {country}
         <img
           className="display--icon"
           src={`https://openweathermap.org/img/wn/${icon}@4x.png`}
@@ -20,6 +23,6 @@ export default function WeatherDisplay({
         <p>Humidity: {humidity}%</p>
         <p>Wind Speed: {windSpeed} m/s</p>
       </div>
-    </main>
+    </div>
   );
 }
