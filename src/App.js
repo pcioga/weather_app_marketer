@@ -56,11 +56,12 @@ function App() {
   return (
     <div>
       <Header />
+      <div className="main--city">
+        {currentLocation.city}, {currentLocation.country}
+      </div>
       <WeatherDisplay
         lat={currentLocation.latitude}
         lon={currentLocation.longitude}
-        city={currentLocation.city}
-        country={currentLocation.country}
       />
     </div>
   );
