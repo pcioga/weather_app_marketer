@@ -1,0 +1,13 @@
+:root {
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 32px;
+  --space-xl: 64px;
+
+  --color-text-high-contrast: #e1ebf4;
+  --color-text-mid-contrast: #a2a4b5;
+
+  --color-background-app: #282d35;
+  --color-background-container: #21222a;
+}

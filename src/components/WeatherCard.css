@@ -1,0 +1,35 @@
+.weather-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-s);
+  padding-left: var(--space-l);
+  padding-right: var(--space-m);
+  background-color: #21222a;
+}
+
+.weather-card p {
+  color: var(--color-text-mid-contrast);
+}
+
+.weather-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.weather-card-grid-container {
+  width: 100%;
+}
+
+.weather-card-grid-container h2 {
+  margin-bottom: var(--space-s);
+}
+
+.weather-card-grid {
+  display: grid;
+  gap: var(--space-m);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  list-style-type: none;
+}

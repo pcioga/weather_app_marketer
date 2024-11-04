@@ -1,0 +1,18 @@
+.weather-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.weather-display .details {
+  flex-grow: 1;
+}
+
+.weather-display h1 {
+  margin-bottom: var(--space-m);
+  border-bottom: 1px solid #4a5054;
+}

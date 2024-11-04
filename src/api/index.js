@@ -1,4 +1,5 @@
 const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+const mapApiKey = process.env.REACT_APP_MAP_API_KEY;
 
 export const getUserLocation = async () => {
   try {
@@ -34,8 +35,9 @@ export const getLocationName = async (lat, lon) => {
 
 export const getWeather = async (city) => {
   try {
+    const query = city.split(",");
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${query[0]}&units=metric&appid=${apiKey}`
     );
     const data = await response.json();
     const weather_data = data.weather[0];
@@ -51,5 +53,16 @@ export const getWeather = async (city) => {
     };
   } catch (error) {
     console.error("Error fetching weather:", error);
+  }
+};
+
+export const fetchPlace = async (text) => {
+  try {
+    const response = await fetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${text}.json?access_token=${mapApiKey}&cachebuster=1625641871908&autocomplete=true&types=place`
+    );
+    return response.json();
+  } catch (err) {
+    return { error: "Unable to retrieve places" };
   }
 };

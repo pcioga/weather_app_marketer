@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { fetchPlace } from "../api";
+
+import "./Header.css";
 
 export default function Header({ onSearch }) {
-  const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
-
   const [searchValue, setSearchValue] = useState("");
+  const [autocompleteCities, setAutocompleteCities] = useState([]);
 
-  const handleSearch = (event) => {
+  const handleSearch = async (event) => {
     const value = event.target.value;
     setSearchValue(value);
+
+    const res = await fetchPlace(value);
+    if (!autocompleteCities.includes(event.target.value) && res.features) {
+      setAutocompleteCities(res.features.map((place) => place.place_name));
+    }
 
     if (onSearch) {
       onSearch(value);
@@ -16,15 +23,26 @@ export default function Header({ onSearch }) {
 
   return (
     <header className="header">
-      <h2 className="header--title">How's the weather?</h2>
-      <input
-        className="header--search"
-        type="search"
-        placeholder="Search"
-        name="citySearch"
-        value={searchValue}
-        onChange={handleSearch}
-      />
+      <h2>How's the weather?</h2>
+      <div className="search-container">
+        <input
+          className="search-input"
+          list="places"
+          type="text"
+          id="city"
+          name="citySearch"
+          placeholder="Search city..."
+          onChange={handleSearch}
+          value={searchValue}
+          pattern={autocompleteCities.join("|")}
+          autoComplete="off"
+        />
+        <datalist id="places">
+          {autocompleteCities.map((city, i) => (
+            <option key={i}>{city}</option>
+          ))}
+        </datalist>
+      </div>
     </header>
   );
 }

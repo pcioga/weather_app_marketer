@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-m);
+  padding: var(--space-l);
+  background-color: var(--color-background-container);
+}
+
+.search-container {
+  flex-grow: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  padding-top: var(--space-xs);
+  padding-bottom: var(--space-xs);
+  padding-left: var(--space-s);
+  padding-right: var(--space-s);
+  text-overflow: ellipsis;
+}
