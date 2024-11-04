@@ -29,9 +29,10 @@ export default function Header({ onSearch, error }) {
         <input
           className="search-input"
           list="city-list"
-          type="text"
+          type="search"
           id="city"
           name="city-search"
+          aria-label="Search city"
           placeholder="Search city..."
           onChange={handleSearch}
           value={searchValue}

@@ -30,6 +30,7 @@ function App() {
 
   const fetchWeatherData = async (city) => {
     const weatherData = await getWeather(city);
+
     if (weatherData) {
       if (weatherData.error) {
         setError(weatherData.error);
@@ -60,11 +61,12 @@ function App() {
   useEffect(() => {
     if (searchLocation < 3) return;
 
-    const debouncedFetch = debounce(
-      () => fetchWeatherData(searchLocation),
-      1000
-    );
+    const debouncedFetch = debounce(() => {
+      fetchWeatherData(searchLocation);
+    }, 1000);
+
     debouncedFetch();
+
     return () => {
       debouncedFetch.cancel();
     };
