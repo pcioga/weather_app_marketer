@@ -26,13 +26,23 @@ function App() {
 
   const [recentSearches, setRecentSearches] = useState([]);
 
+  const [error, setError] = useState("");
+
   const fetchWeatherData = async (city) => {
     const weatherData = await getWeather(city);
     if (weatherData) {
-      setWeatherData(weatherData);
-      setRecentSearches((prevRecentSearches) => {
-        return uniqBy([weatherData, ...prevRecentSearches], "city").slice(0, 7);
-      });
+      if (weatherData.error) {
+        setError(weatherData.error);
+      } else {
+        setError("");
+        setWeatherData(weatherData);
+        setRecentSearches((prevRecentSearches) => {
+          return uniqBy([weatherData, ...prevRecentSearches], "city").slice(
+            0,
+            7
+          );
+        });
+      }
     }
   };
 
@@ -62,7 +72,7 @@ function App() {
 
   return (
     <div>
-      <Header onSearch={setSearchLocation} />
+      <Header onSearch={setSearchLocation} error={error} />
       <main>
         <WeatherDisplay {...weatherData} />
 

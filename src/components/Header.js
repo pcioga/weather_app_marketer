@@ -3,7 +3,7 @@ import { fetchPlace } from "../api";
 
 import "./Header.css";
 
-export default function Header({ onSearch }) {
+export default function Header({ onSearch, error }) {
   const [searchValue, setSearchValue] = useState("");
   const [autocompleteCities, setAutocompleteCities] = useState([]);
 
@@ -11,9 +11,10 @@ export default function Header({ onSearch }) {
     const value = event.target.value;
     setSearchValue(value);
 
-    const res = await fetchPlace(value);
-    if (!autocompleteCities.includes(event.target.value) && res.features) {
-      setAutocompleteCities(res.features.map((place) => place.place_name));
+    const response = await fetchPlace(value);
+
+    if (!autocompleteCities.includes(event.target.value) && response.features) {
+      setAutocompleteCities(response.features.map((place) => place.place_name));
     }
 
     if (onSearch) {
@@ -27,21 +28,22 @@ export default function Header({ onSearch }) {
       <div className="search-container">
         <input
           className="search-input"
-          list="places"
+          list="city-list"
           type="text"
           id="city"
-          name="citySearch"
+          name="city-search"
           placeholder="Search city..."
           onChange={handleSearch}
           value={searchValue}
           pattern={autocompleteCities.join("|")}
           autoComplete="off"
         />
-        <datalist id="places">
+        <datalist id="city-list">
           {autocompleteCities.map((city, i) => (
             <option key={i}>{city}</option>
           ))}
         </datalist>
+        {Boolean(error) && <span className="error-message">{error}</span>}
       </div>
     </header>
   );

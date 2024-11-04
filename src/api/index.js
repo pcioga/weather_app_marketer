@@ -14,7 +14,8 @@ export const getUserLocation = async () => {
       return location;
     }
   } catch (error) {
-    console.log("Unable to get location");
+    console.error(error);
+    return { error: "Error: Unable to get user location" };
   }
 };
 
@@ -29,7 +30,8 @@ export const getLocationName = async (lat, lon) => {
       country: data[0].country,
     };
   } catch (error) {
-    console.error("Error openweather API:", error);
+    console.error(error);
+    return { error: "Error openweather API" };
   }
 };
 
@@ -52,7 +54,10 @@ export const getWeather = async (city) => {
       country: data.sys.country,
     };
   } catch (error) {
-    console.error("Error fetching weather:", error);
+    console.error(error);
+    return {
+      error: `Error: couldn't find weather for "${city}"`,
+    };
   }
 };
 
@@ -62,7 +67,7 @@ export const fetchPlace = async (text) => {
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${text}.json?access_token=${mapApiKey}&cachebuster=1625641871908&autocomplete=true&types=place`
     );
     return response.json();
-  } catch (err) {
+  } catch (error) {
     return { error: "Unable to retrieve places" };
   }
 };

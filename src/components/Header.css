@@ -11,6 +11,7 @@
 .search-container {
   flex-grow: 1;
   max-width: 400px;
+  position: relative;
 }
 
 .search-input {
@@ -22,4 +23,13 @@
   padding-left: var(--space-s);
   padding-right: var(--space-s);
   text-overflow: ellipsis;
+}
+
+.error-message {
+  color: var(--color-text-error);
+  font-size: 12px;
+  padding: var(--space-xs);
+  position: absolute;
+  top: 100%;
+  left: 0;
 }
